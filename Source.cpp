@@ -13,7 +13,7 @@
 #include <iterator>
 using namespace std;
 vector<string>board;
-vector<vector<string> >boogle;
+vector<vector<string> >boggle;
 stringstream theboss;
 set<string>righta;
 void check(string test,set <string>& righta,set <string>& dictionary)
@@ -41,7 +41,7 @@ bool stringtest(string test,set <string>& dictionary)
 	else
 	return false;
 }
-void the_loop(vector<vector<string> > &boogle, int i, int j, string test, set<string>& righta, int how_many_tiles2, vector<vector<bool> >&check_visited,set <string>& dictionary)
+void the_loop(vector<vector<string> > &boggle, int i, int j, string test, set<string>& righta, int how_many_tiles2, vector<vector<bool> >&check_visited,set <string>& dictionary)
 {
 	//cout<<how_many_tiles2<<endl;
 	if (i<0 || j<0 || i>=how_many_tiles2 || j>=how_many_tiles2)
@@ -55,7 +55,7 @@ void the_loop(vector<vector<string> > &boogle, int i, int j, string test, set<st
 		return;
 	}
 
-	test = test + boogle[i][j];
+	test = test + boggle[i][j];
 	//cout<<test;
 	if (stringtest(test,dictionary) == 0)
 	{
@@ -63,14 +63,14 @@ void the_loop(vector<vector<string> > &boogle, int i, int j, string test, set<st
 	}
 	check(test, righta,dictionary);
 	check_visited[i][j] = true;
-	the_loop(boogle, i + 1, j, test, righta, how_many_tiles2, check_visited,dictionary);
-	the_loop(boogle, i, j + 1, test, righta, how_many_tiles2, check_visited,dictionary);
-	the_loop(boogle, i + 1, j+1, test, righta, how_many_tiles2, check_visited,dictionary);
-	the_loop(boogle, i, j - 1, test, righta, how_many_tiles2, check_visited,dictionary);
-	the_loop(boogle, i - 1, j + 1, test, righta, how_many_tiles2, check_visited,dictionary);
-	the_loop(boogle, i + 1, j - 1, test, righta, how_many_tiles2, check_visited,dictionary);
-	the_loop(boogle, i - 1, j - 1, test, righta, how_many_tiles2, check_visited,dictionary);
-	the_loop(boogle, i - 1, j, test, righta, how_many_tiles2, check_visited,dictionary);
+	the_loop(boggle, i + 1, j, test, righta, how_many_tiles2, check_visited,dictionary);
+	the_loop(boggle, i, j + 1, test, righta, how_many_tiles2, check_visited,dictionary);
+	the_loop(boggle, i + 1, j+1, test, righta, how_many_tiles2, check_visited,dictionary);
+	the_loop(boggle, i, j - 1, test, righta, how_many_tiles2, check_visited,dictionary);
+	the_loop(boggle, i - 1, j + 1, test, righta, how_many_tiles2, check_visited,dictionary);
+	the_loop(boggle, i + 1, j - 1, test, righta, how_many_tiles2, check_visited,dictionary);
+	the_loop(boggle, i - 1, j - 1, test, righta, how_many_tiles2, check_visited,dictionary);
+	the_loop(boggle, i - 1, j, test, righta, how_many_tiles2, check_visited,dictionary);
 	check_visited[i][j] = false;
 }
 void couting(set<string>righta, ofstream &output)
@@ -94,23 +94,23 @@ for (int i = 0; i < how_many_tiles2; i++)
 		check_visited.push_back(insert);
 	}
 }
-void outputthings(int how_many_tiles2, ofstream &output, vector<vector<string> > &boogle)
+void outputthings(int how_many_tiles2, ofstream &output, vector<vector<string> > &boggle)
 {
 	for ( int s = 0; s < how_many_tiles2; s++)
 	{
 		for (int f = 0; f < how_many_tiles2; f++)
 		{
-			output << boogle[s][f]<<" ";
+			output << boggle[s][f]<<" ";
 		}
 		output << endl;
 	}
 }
-void resize(vector<vector<string> > &boogle, int how_many_tiles2)
+void resize(vector<vector<string> > &boggle, int how_many_tiles2)
 {
-	boogle.resize(how_many_tiles2);
+	boggle.resize(how_many_tiles2);
 	for (int f = 0; f < how_many_tiles2; f++)
 	{
-		boogle[f].resize(how_many_tiles2);
+		boggle[f].resize(how_many_tiles2);
 	}
 }
 void insertdictionary(ifstream &in_file,string word,set <string>&dictionary)
@@ -155,20 +155,20 @@ int main(int argc, char *argv[])
 	}
 	in_file2.close();
 	int how_many_tiles2 = sqrt(how_many_tiles);
-	resize(boogle, how_many_tiles2);
+	resize(boggle, how_many_tiles2);
 	string answer;
 		for (int s = 0; s < how_many_tiles2; s++)
 		{
 			for (int f = 0; f < how_many_tiles2; f++)
 			{
 				theboss >> answer;
-				boogle[s][f] = answer;
+				boggle[s][f] = answer;
 				board.push_back(answer);
 			}
 		}
 		ofstream output;
 		output.open(argv[3]);
-	outputthings(how_many_tiles2, output, boogle);
+	outputthings(how_many_tiles2, output, boggle);
 	string test="";
 	string test1;
 	vector<vector<bool> >check_visited;
@@ -178,7 +178,7 @@ int main(int argc, char *argv[])
 	{
 		for (int j = 0; j < how_many_tiles2; j++)
 		{
-				the_loop(boogle, i, j, test, righta, how_many_tiles2, check_visited,dictionary);
+				the_loop(boggle, i, j, test, righta, how_many_tiles2, check_visited,dictionary);
 
 		}
 	}
